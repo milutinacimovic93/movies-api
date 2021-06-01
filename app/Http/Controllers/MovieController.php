@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Movie;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\MoviesRequest;
 class MovieController extends Controller
 {
     public function index() {
@@ -17,16 +17,16 @@ class MovieController extends Controller
 
     }
 
-    public function store(Request $request) {
+    public function store(MoviesRequest $request) {
 
+        info('test');
         return Movie::create($request->all());
 
     }
 
-    public function update(Request $request, $id) {
+    public function update(MoviesRequest $request, $id) {
 
-        $movie = Movie::where('id',$id)->update($request->all());
-        return $movie;
+        Movie::where('id',$id)->update($request->validate());
 
     }
 
